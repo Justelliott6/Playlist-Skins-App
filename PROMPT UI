@@ -1,0 +1,49 @@
+<!-- INSTALL PROMPT UI -->
+<style>
+  #installBanner {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111;
+    color: #fff;
+    padding: 14px 22px;
+    border-radius: 14px;
+    font-size: 17px;
+    display: none;
+    cursor: pointer;
+    z-index: 99999;
+    box-shadow: 0 0 10px rgba(255,255,255,0.2);
+    transition: opacity 0.3s ease;
+  }
+  #installBanner:hover {
+    opacity: 0.85;
+  }
+</style>
+
+<div id="installBanner">📱 Install Playlist Skins App</div>
+
+<script>
+  let deferredPrompt;
+  const banner = document.getElementById("installBanner");
+
+  // Fires BEFORE browser would show install popup
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();                     // Stop default browser pop-up
+    deferredPrompt = e;                     // Save event
+    banner.style.display = "block";         // Show install banner UI
+  });
+
+  // When user taps your banner
+  banner.addEventListener("click", async () => {
+    banner.style.display = "none";          // Hide UI
+    if (!deferredPrompt) return;
+
+    deferredPrompt.prompt();                // Show browser install box
+
+    const result = await deferredPrompt.userChoice;
+    console.log("Install result:", result.outcome);
+
+    deferredPrompt = null;                  // Clean up
+  });
+</script>
