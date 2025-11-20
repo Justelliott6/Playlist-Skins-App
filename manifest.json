@@ -1,0 +1,19 @@
+{
+  "name": "Playlist Skins App",
+  "short_name": "PlaylistSkins",
+  "description": "Create custom Spotify playlist skins with your own boombox designs.",
+  "start_url": "/Playlist-Skins-App/index.html",
+  "scope": "/Playlist-Skins-App/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#ff0000",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "boombox.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
