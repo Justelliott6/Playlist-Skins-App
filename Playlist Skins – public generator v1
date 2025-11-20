@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Playlist Skins – Boombox Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #050607;
+      color: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 24px 16px 8px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ffd82b;
+    }
+
+    header p {
+      margin: 6px 0 0;
+      font-size: 0.95rem;
+      color: #cccccc;
+    }
+
+    main {
+      width: 100%;
+      max-width: 1100px;
+      padding: 0 16px 40px;
+      box-sizing: border-box;
+    }
+
+    .panel {
+      background: #111317;
+      border-radius: 16px;
+      padding: 18px 18px 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+      border: 1px solid #262a32;
+    }
+
+    .panel h2 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9fb4ff;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: #d0d0d0;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 9px 11px;
+      border-radius: 8px;
+      border: 1px solid #343842;
+      background: #07080b;
+      color: #f4f4f4;
+      font-size: 0.9rem;
+      box-sizing: border-box;
+    }
+
+    input[type="text"]::placeholder {
+      color: #757a86;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: none;
+      background: #ffd82b;
+      color: #201400;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+    }
+
+    button:hover {
+      filter: brightness(1.05);
+    }
+
+    .hint {
+      font-size: 0.8rem;
+      color: #9095a3;
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    /* Boombox preview */
+
+    .preview-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .boombox-shell {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .boombox-shell img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .boombox-iframe-slot {
+      position: absolute;
+      /* position tuned to your “Bring Back Rock 101” image */
+      top: 128px;      /* move DOWN by increasing, UP by decreasing */
+      left: 120px;
+      width: 660px;
+      height: 65px;    /* thickness of the tuner bar */
+      overflow: hidden;
+      border-radius: 8px;
+      pointer-events: auto;
+    }
+
+    .boombox-iframe-slot iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: transparent;
+    }
+
+    /* Code output */
+
+    textarea {
+      width: 100%;
+      min-height: 180px;
+      resize: vertical;
+      background: #050608;
+      color: #f4f4f4;
+      border-radius: 10px;
+      border: 1px solid #343842;
+      padding: 10px 12px;
+      box-sizing: border-box;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .code-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .code-label-row span {
+      font-size: 0.9rem;
+      color: #d0d0d0;
+    }
+
+    .copy-btn {
+      margin: 0;
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      background: #3cf29b;
+      color: #02140c;
+    }
+
+    @media (max-width: 960px) {
+      .boombox-iframe-slot {
+        left: 13.3%;
+        width: 73.5%;
+      }
+    }
+
+    @media (max-width: 640px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Playlist Skins</h1>
+    <p>Turn any Spotify playlist into a retro boombox skin.</p>
+  </header>
+
+  <main>
+    <!-- STEP 1: Playlist input -->
+    <section class="panel">
+      <h2>1. Drop your Spotify playlist</h2>
+      <label for="playlistUrl">
+        Spotify playlist URL
+      </label>
+      <input
+        id="playlistUrl"
+        type="text"
+        placeholder="https://open.spotify.com/playlist/2MmIJTeFeehQ3uo1PFydLh"
+      />
+      <button id="applyBtn">Apply to boombox</button>
+      <div class="hint">
+        Paste a normal playlist link. We’ll turn it into the embed URL for you.
+      </div>
+    </section>
+
+    <!-- STEP 2: Live preview -->
+    <section class="panel">
+      <h2>2. Preview your skin</h2>
+      <div class="preview-wrapper">
+        <div class="boombox-shell">
+          <!-- Your skin art -->
+          <img
+            src="https://primary.jwwb.nl/public/g/u/b/temp-lwmvpgonevezulioxwug/untitled-design-high.png"
+            alt="Playlist Skins Boombox"
+          />
+          <!-- Spotify iframe sits in the tuner window -->
+          <div class="boombox-iframe-slot">
+            <iframe
+              id="playlistFrame"
+              src="https://open.spotify.com/embed/playlist/2MmIJTeFeehQ3uo1PFydLh?utm_source=generator"
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+        <div class="hint">
+          If the player looks slightly off, you can tweak the <code>top</code>, <code>left</code>, <code>width</code>, or <code>height</code>
+          values inside <code>.boombox-iframe-slot</code> in the CSS.
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3: Copy-paste widget code -->
+    <section class="panel">
+      <div class="code-label-row">
+        <span>3. Copy this HTML widget to use on your site</span>
+        <button class="copy-btn" id="copyBtn">Copy code</button>
+      </div>
+      <textarea id="outputCode" readonly></textarea>
+      <div class="hint">
+        Paste this into any site that allows custom HTML (Webador, WordPress, etc).
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const input = document.getElementById('playlistUrl');
+    const iframe = document.getElementById('playlistFrame');
+    const output = document.getElementById('outputCode');
+    const applyBtn = document.getElementById('applyBtn');
+    const copyBtn = document.getElementById('copyBtn');
+
+    // Default playlist (yours)
+    const defaultPlaylist = 'https://open.spotify.com/playlist/2MmIJTeFeehQ3uo1PFydLh';
+
+    function toEmbedUrl(rawUrl) {
+      if (!rawUrl) return '';
+      let url = rawUrl.trim();
+
+      // If they pasted the /playlist/ form, convert it
+      url = url.replace('open.spotify.com/playlist/', 'open.spotify.com/embed/playlist/');
+
+      // Strip extra query params except ?utm_source=generator
+      const qIndex = url.indexOf('?');
+      if (qIndex !== -1) {
+        url = url.substring(0, qIndex);
+      }
+
+      // Add generator tag for cleanliness
+      if (!url.includes('/embed/playlist/')) return '';
+      return url + '?utm_source=generator';
+    }
+
+    function buildEmbedCode(embedUrl) {
+      return `<!-- Playlist Skins Boombox Widget -->
+<div style="
+  position:relative;
+  width:900px;
+  margin:40px auto;
+">
+  <img
+    src="https://primary.jwwb.nl/public/g/u/b/temp-lwmvpgonevezulioxwug/untitled-design-high.png"
+    alt="Playlist Skins Boombox"
+    style="display:block;width:100%;border-radius:12px;"
+  />
+  <div style="
+    position:absolute;
+    top:128px;
+    left:120px;
+    width:660px;
+    height:65px;
+    overflow:hidden;
+    border-radius:8px;
+  ">
+    <iframe
+      src="${embedUrl}"
+      width="100%"
+      height="100%"
+      frameborder="0"
+      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+      loading="lazy"
+      style="background:transparent;"
+    ></iframe>
+  </div>
+</div>`;
+    }
+
+    function applyPlaylist() {
+      const raw = input.value || defaultPlaylist;
+      const embedUrl = toEmbedUrl(raw);
+
+      if (!embedUrl) {
+        alert('That does not look like a valid Spotify playlist URL.');
+        return;
+      }
+
+      iframe.src = embedUrl;
+      output.value = buildEmbedCode(embedUrl);
+    }
+
+    function init() {
+      input.value = defaultPlaylist;
+      applyPlaylist();
+    }
+
+    applyBtn.addEventListener('click', applyPlaylist);
+
+    copyBtn.addEventListener('click', () => {
+      output.select();
+      document.execCommand('copy');
+    });
+
+    init();
+  </script>
+</body>
+</html>
