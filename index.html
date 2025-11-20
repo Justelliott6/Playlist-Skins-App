@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Playlist Skins App</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    #boombox {
+      width: 100%;
+      max-width: 900px;
+      margin: 20px auto;
+      display: block;
+    }
+
+    #skin-container {
+      position: relative;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    #playlist-frame {
+      position: absolute;
+      top: 126px;
+      left: 120px;
+      width: 660px;
+      height: 65px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: none;
+    }
+
+    /* Install banner */
+    #install-banner {
+      display: none;
+      background: #222;
+      padding: 15px;
+      border: 1px solid #555;
+      border-radius: 8px;
+      margin: 15px auto;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    #install-banner button {
+      background: #ffcc00;
+      border: none;
+      padding: 10px 18px;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Playlist Skins App</h1>
+
+  <!-- Install Prompt -->
+  <div id="install-banner">
+    <p>Install Playlist Skins App?</p>
+    <button id="install-btn">Install</button>
+  </div>
+
+  <div id="skin-container">
+    <img id="boombox" src="boombox.png" alt="Boombox Skin">
+
+    <iframe 
+      id="playlist-frame"
+      src="https://open.spotify.com/embed/playlist/2MmIJTeFeehQ3uo1PFydLh?utm_source=generator"
+      allow="encrypted-media"
+      loading="lazy">
+    </iframe>
+  </div>
+
+<script src="install-prompt.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js');
+}
+</script>
+
+</body>
+</html>
