@@ -1,0 +1,42 @@
+<!-- Install App Prompt UI -->
+<style>
+  #installBanner {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 14px;
+    display: none;
+    font-size: 16px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.5);
+    z-index: 9999;
+    cursor: pointer;
+  }
+</style>
+
+<div id="installBanner">📱 Install Playlist Skins App</div>
+
+<script>
+  let deferredPrompt;
+  const banner = document.getElementById("installBanner");
+
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    banner.style.display = "block";
+  });
+
+  banner.addEventListener("click", async () => {
+    banner.style.display = "none";
+    if (!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+    const result = await deferredPrompt.userChoice;
+
+    console.log("Install choice:", result.outcome);
+    deferredPrompt = null;
+  });
+</script>
