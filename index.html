@@ -26,18 +26,23 @@
       font-size: 14px;
     }
 
-    /* Container for the skin */
-    #skin-container {
-      position: relative;
-      max-width: 900px;      /* max size on big screens */
-      margin: 20px auto;     /* center horizontally, add space above/below */
-    }
+  /* Container for the skin */
+#skin-container {
+  position: relative;
+  max-width: 600px;
+  margin: 10px auto;
+  overflow: hidden;          /* hide anything that sticks out */
+}
 
-    /* The boom box image itself */
-    #boombox {
-      display: block;
-      width: 100%;           /* fill container width */
-      height: auto;          /* keep correct proportions */
+/* The boom box image itself */
+#boombox {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  margin-top: -40px;         /* move image up to hide white strip */
+}
+
     }
 
     /* Install banner */
