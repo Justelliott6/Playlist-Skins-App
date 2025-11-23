@@ -8,7 +8,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #111;
+      background: #000;           /* pure black background */
       color: white;
       text-align: center;
       padding: 20px;
@@ -25,12 +25,14 @@
       font-size: 14px;
     }
 
+    /* Container for the skin */
     #skin-container {
       position: relative;
       max-width: 900px;
       margin: 20px auto;
     }
 
+    /* The boom box image itself */
     #boombox {
       width: 100%;
       max-width: 900px;   /* controls how big it can get */
@@ -41,7 +43,7 @@
     /* Install banner */
     #install-banner {
       display: none;
-     background: #000
+      background: #000;
       padding: 15px;
       border: 1px solid #555;
       border-radius: 8px;
@@ -100,10 +102,9 @@
   </div>
 
   <!-- Boom Box skin -->
- <div id="skin-container">
-  <img id="Boom Box (1)" src=Boom Box (1).png" alt="Bring Back Rock 101 Boom Box (1)">
-</div>
-
+  <div id="skin-container">
+    <img id="boombox" src="Boom Box (1).png" alt="Bring Back Rock 101 Boom Box">
+  </div>
 
   <!-- Simple playlist input -->
   <div id="playlist-input">
