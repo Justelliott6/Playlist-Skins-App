@@ -2,97 +2,79 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Playlist Skins App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- PWA manifest & icon -->
+  <title>Playlist Skins App</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="boombox.png">
-
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      background: #000;
-      color: #f5f5f5;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    .wrap {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 16px;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
       text-align: center;
+      padding: 20px;
     }
+
     h1 {
-      font-size: 28px;
-      margin: 10px 0 4px;
+      margin-bottom: 4px;
     }
-    p {
-      font-size: 16px;
-      margin: 4px 0 16px;
+
+    p.subtitle {
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: #ccc;
+      font-size: 14px;
     }
-    #installButton {
-      font-size: 18px;
-      padding: 10px 24px;
-      margin-bottom: 20px;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      background: #ff007a;
-      color: #fff;
-    }
-    #installButton[disabled] {
-      background: #444;
-      cursor: default;
-    }
-    .boombox {
-      display: block;
-      margin: 10px auto 24px;
-      max-width: 100%;
-      height: auto;
-    }
-    .section-title {
-      font-size: 20px;
-      margin: 12px 0 8px;
-    }
-    .player {
-      margin: 0 auto 24px;
-      max-width: 900px;
-    }
-    iframe {
-      border: 0;
-      border-radius: 12px;
+
+    #boombox {
       width: 100%;
+      max-width: 900px;
+      margin: 20px auto;
+      display: block;
+    }
+
+    #skin-container {
+      position: relative;
+      max-width: 900px;
+      margin: 20px auto;
+    }
+
+    /* Install banner */
+    #install-banner {
+      display: none;
+      background: #222;
+      padding: 15px;
+      border: 1px solid #555;
+      border-radius: 8px;
+      margin: 15px auto;
+      max-width: 400px;
+    }
+
+    #install-banner button {
+      background: #ffc600;
+      border: none;
+      padding: 10px 18px;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius: 6px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>Playlist Skins App</h1>
-    <p>Add this app to your device and bring back Rock 101.</p>
+  <h1>Playlist Skins App</h1>
+  <p class="subtitle">Add this app to your device and bring back Rock 101.</p>
 
-    <!-- Install button (uses install-prompt.js) -->
-    <button id="installButton">Install Playlist Skins App</button>
-
-    <!-- Boombox skin image in your repo root -->
-    <img src="boombox.png"
-         alt="Bring Back Rock 101 boombox"
-         class="boombox">
-<div id="playlist-input">
-  <p>Paste your Spotify playlist link:</p>
-  <input type="text" id="playlist-url" placeholder="https://open.spotify.com/playlist/..." />
-  <br>
-  <button type="button" id="playlist-btn">Open playlist</button>
-</div>
-
-     <!-- PWA + install handler -->
-  <script src="install-prompt.js"></script>
-
-
-    </div>
+  <!-- Install Prompt -->
+  <div id="install-banner">
+    <p>Install Playlist Skins App?</p>
+    <button id="installButton">Install</button>
   </div>
 
-  <!-- PWA + install handler -->
+  <!-- Boombox skin -->
+  <div id="skin-container">
+    <img id="boombox" src="boombox.png" alt="Boombox Skin">
+  </div>
+
   <script src="install-prompt.js"></script>
   <script>
     // Register service worker if available
@@ -103,30 +85,6 @@
         });
       });
     }
-
-    // Wire up install button if install-prompt.js exposes window.deferredPrompt
-    const installButton = document.getElementById("installButton");
-    if (installButton) {
-      installButton.disabled = true;
-
-      window.addEventListener("beforeinstallprompt", (e) => {
-        e.preventDefault();
-        window.deferredPrompt = e;
-        installButton.disabled = false;
-      });
-
-      installButton.addEventListener("click", async () => {
-        const promptEvent = window.deferredPrompt;
-        if (!promptEvent) return;
-
-        promptEvent.prompt();
-        const choice = await promptEvent.userChoice;
-        console.log("Install choice:", choice.outcome);
-        window.deferredPrompt = null;
-        installButton.disabled = true;
-      });
-    }
   </script>
 </body>
 </html>
-
