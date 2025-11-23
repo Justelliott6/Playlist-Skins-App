@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,11 +7,17 @@
   <link rel="manifest" href="manifest.json">
   <style>
     body {
+      margin: 0;
+      min-height: 100vh;              /* fill full screen */
       font-family: Arial, sans-serif;
-      background: #000;           /* pure black background */
-      color: white;
+      background: #000;               /* pure black */
+      color: #fff;
+      display: flex;                  /* center everything */
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 20px;
+      padding: 20px 20px 40px;
     }
 
     h1 {
@@ -26,46 +31,42 @@
       font-size: 14px;
     }
 
-
-    /* Container for the skin */
-#skin-container {
-  position: relative;
-  max-width: 600px;
-  margin: 10px auto;
-  /* no overflow: hidden */
-}
-
-/* The boom box image itself */
-#boombox {
-  display: block;
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  margin-top: 0;          /* show the full handle */
-}
-
-
-    }
-
     /* Install banner */
     #install-banner {
-      display: none;
+      display: none;                  /* shown by install-prompt.js when supported */
       background: #000;
-      padding: 15px;
+      padding: 10px;
       border: 1px solid #555;
       border-radius: 8px;
-      margin: 15px auto;
-      max-width: 400px;
+      margin: 10px auto 20px;
+      max-width: 320px;
     }
 
     #install-banner button {
       background: #ffc600;
       border: none;
-      padding: 10px 18px;
-      margin-top: 10px;
+      padding: 6px 12px;
+      margin-top: 5px;
       cursor: pointer;
       border-radius: 6px;
       font-weight: bold;
+      font-size: 12px;
+    }
+
+    /* Container for the skin */
+    #skin-container {
+      position: relative;
+      max-width: 600px;              /* controls how big the boombox can get */
+      margin: 10px auto;
+    }
+
+    /* The boom box image itself */
+    #boombox {
+      display: block;
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      margin-top: 0;                 /* show full handle */
     }
 
     /* Playlist input box */
