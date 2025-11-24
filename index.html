@@ -9,18 +9,23 @@
   <!-- Basic SEO description -->
   <meta name="description" content="Paste your Spotify playlist link and open it with the Rock 101 boombox skin. Bring back the vibe of Rock 101 on your device.">
 
-  <!-- Open Graph for Facebook / socials -->
+  <!-- Open Graph / Facebook -->
   <meta property="og:title" content="Playlist Skins App – Bring Back Rock 101">
   <meta property="og:description" content="Paste your Spotify playlist link and open it with the Rock 101 boombox skin.">
   <meta property="og:image" content="https://justelliott6.github.io/Playlist-Skins-App/Boom%20Box%20(1).png">
   <meta property="og:url" content="https://justelliott6.github.io/Playlist-Skins-App/">
   <meta property="og:type" content="website">
 
-  <!-- (When Facebook gives you a domain verification tag, it will go here) -->
-    <!-- Open Graph for Facebook / socials -->
+  <!-- Facebook app / site ID -->
+  <meta property="fb:app_id" content="1303136687776038">
 
+  <!-- Apple app ID (when you publish to App Store this can deep-link) -->
+  <meta name="apple-itunes-app" content="app-id=117195524439419">
+
+  <!-- Placeholder for future Facebook domain verification -->
   <!-- <meta name="facebook-domain-verification" content="PUT_TOKEN_HERE" /> -->
 
+  <!-- PWA manifest -->
   <link rel="manifest" href="manifest.json">
 
   <style>
@@ -49,7 +54,7 @@
       font-size: 14px;
     }
 
-    /* Install button (always visible when install is available) */
+    /* Install button – always visible */
     #install-btn {
       background: #ffc600;
       border: none;
@@ -59,7 +64,7 @@
       border-radius: 6px;
       font-weight: bold;
       font-size: 13px;
-      display: none;   /* we show it when beforeinstallprompt fires */
+      display: inline-block;
     }
 
     /* Container for the skin */
@@ -113,18 +118,7 @@
   <p class="subtitle">Add this app to your device and bring back Rock 101.</p>
 
   <!-- Big install button for PWA -->
-#install-btn {
-  background: #ffc600;
-  border: none;
-  padding: 8px 16px;
-  margin: 10px 0 20px;
-  cursor: pointer;
-  border-radius: 6px;
-  font-weight: bold;
-  font-size: 13px;
-  display: inline-block;   /* always visible */
-}
-
+  <button id="install-btn">Install Playlist Skins App</button>
 
   <!-- Boom Box skin -->
   <div id="skin-container">
@@ -157,9 +151,6 @@
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();          // stop default mini-infobar
       deferredPrompt = e;          // save the event so we can trigger later
-      if (installBtn) {
-        installBtn.style.display = "inline-block";
-      }
     });
 
     if (installBtn) {
@@ -177,7 +168,6 @@
           console.log("Install prompt error:", err);
         }
         deferredPrompt = null;
-        installBtn.style.display = "none";
       });
     }
 
