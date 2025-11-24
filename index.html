@@ -19,23 +19,20 @@
   <!-- Facebook app / site ID -->
   <meta property="fb:app_id" content="1303136687776038">
 
-  <!-- Apple app ID (when you publish to App Store this can deep-link) -->
+  <!-- Apple app ID (for future App Store deep-linking) -->
   <meta name="apple-itunes-app" content="app-id=117195524439419">
 
-  <!-- Placeholder for future Facebook domain verification -->
-  <!-- <meta name="facebook-domain-verification" content="PUT_TOKEN_HERE" /> -->
-
-  <!-- PWA manifest -->
+  <!-- PWA manifest (still fine to keep) -->
   <link rel="manifest" href="manifest.json">
 
   <style>
     body {
       margin: 0;
-      min-height: 100vh;              /* fill full screen */
+      min-height: 100vh;
       font-family: Arial, sans-serif;
-      background: #000;               /* pure black */
+      background: #000;
       color: #fff;
-      display: flex;                  /* center everything */
+      display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
@@ -54,7 +51,7 @@
       font-size: 14px;
     }
 
-    /* Install button – always visible */
+    /* Download/Install button */
     #install-btn {
       background: #ffc600;
       border: none;
@@ -64,13 +61,12 @@
       border-radius: 6px;
       font-weight: bold;
       font-size: 13px;
-      display: inline-block;
     }
 
     /* Container for the skin */
     #skin-container {
       position: relative;
-      max-width: 600px;              /* controls how big the boombox can get */
+      max-width: 600px;
       margin: 10px auto;
     }
 
@@ -80,7 +76,7 @@
       width: 100%;
       max-width: 600px;
       height: auto;
-      margin-top: 0;                 /* show full handle */
+      margin-top: 0;
     }
 
     /* Playlist input box */
@@ -117,9 +113,10 @@
   <h1>Playlist Skins App</h1>
   <p class="subtitle">Add this app to your device and bring back Rock 101.</p>
 
-  <!-- Big install button for PWA -->
-<button id="install-btn">Install / Download Playlist Skins App</button>
-
+  <!-- Download button wrapped in a direct link to the zip -->
+  <a href="PlaylistSkinsApp.zip" download>
+    <button id="install-btn">Download Playlist Skins App</button>
+  </a>
 
   <!-- Boom Box skin -->
   <div id="skin-container">
@@ -135,49 +132,6 @@
   </div>
 
   <script>
-    // Register service worker if available (for PWA offline + install)
-     <script>
-    // Register service worker if available (for PWA offline + install)
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("service-worker.js").catch(err => {
-          console.log("SW registration failed:", err);
-        });
-      });
-    }
-
-    // Handle PWA install prompt + fallback download
-    let deferredPrompt = null;
-    const installBtn = document.getElementById("install-btn");
-
-    // Browser fires this when the app can be installed as a PWA
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();          // stop default mini-infobar
-      deferredPrompt = e;          // save the event so we can trigger later
-      console.log("PWA install available");
-    });
-
-    if (installBtn) {
-      installBtn.addEventListener("click", async () => {
-        // 1) If PWA install is available, trigger it
-        if (deferredPrompt) {
-          try {
-            deferredPrompt.prompt();
-            const choiceResult = await deferredPrompt.userChoice;
-            console.log("Install choice:", choiceResult.outcome);
-          } catch (err) {
-            console.log("Install prompt error:", err);
-          }
-          deferredPrompt = null;
-          return;
-        }
-
-        // 2) Fallback: direct download of your zip package
-        // Make sure files.zip exists in the root of your Pages site.
-        window.location.href = "files.zip";
-      });
-    }
-
     // Open pasted playlist in a new tab
     const playlistInput = document.getElementById("playlist-url");
     const playlistBtn = document.getElementById("playlist-btn");
@@ -194,3 +148,5 @@
       });
     }
   </script>
+</body>
+</html>
