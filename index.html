@@ -144,30 +144,45 @@
     }
 
     // Handle PWA install prompt
+    <script>
+    // Register service worker if available (for PWA offline + install)
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("service-worker.js").catch(err => {
+          console.log("SW registration failed:", err);
+        });
+      });
+    }
+
+    // Handle PWA install prompt + fallback download
     let deferredPrompt = null;
     const installBtn = document.getElementById("install-btn");
 
-    // Browser fires this when the app can be installed
+    // Browser fires this when the app can be installed as a PWA
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();          // stop default mini-infobar
       deferredPrompt = e;          // save the event so we can trigger later
+      console.log("PWA install available");
     });
 
     if (installBtn) {
       installBtn.addEventListener("click", async () => {
-        if (!deferredPrompt) {
-          // No prompt available (iOS, desktop Safari, etc.)
-          alert("On this device, use your browser's menu to 'Add to Home screen' or 'Install app'.");
+        // 1) If PWA install is available, trigger it
+        if (deferredPrompt) {
+          try {
+            deferredPrompt.prompt();
+            const choiceResult = await deferredPrompt.userChoice;
+            console.log("Install choice:", choiceResult.outcome);
+          } catch (err) {
+            console.log("Install prompt error:", err);
+          }
+          deferredPrompt = null;
           return;
         }
-        deferredPrompt.prompt();
-        try {
-          const choiceResult = await deferredPrompt.userChoice;
-          console.log("Install choice:", choiceResult.outcome);
-        } catch (err) {
-          console.log("Install prompt error:", err);
-        }
-        deferredPrompt = null;
+
+        // 2) Fallback: direct download of your zip package
+        // Make sure files.zip exists in the root of your Pages site.
+        window.location.href = "files.zip";
       });
     }
 
@@ -187,5 +202,3 @@
       });
     }
   </script>
-</body>
-</html>
