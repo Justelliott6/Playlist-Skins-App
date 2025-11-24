@@ -7,23 +7,18 @@
   <title>Playlist Skins App</title>
 
   <!-- Basic SEO description -->
-  <meta name="description" content="Paste your Spotify playlist link and open it with the Rock 101 boombox skin. Bring back the vibe of Rock 101 on your device.">
+  <meta name="description" content="Paste your Spotify playlist link and open it with the Rock 101 boombox skin.">
 
-  <!-- Open Graph / Facebook -->
+  <!-- Social preview (optional, but fine to keep) -->
   <meta property="og:title" content="Playlist Skins App – Bring Back Rock 101">
   <meta property="og:description" content="Paste your Spotify playlist link and open it with the Rock 101 boombox skin.">
   <meta property="og:image" content="https://justelliott6.github.io/Playlist-Skins-App/Boom%20Box%20(1).png">
   <meta property="og:url" content="https://justelliott6.github.io/Playlist-Skins-App/">
   <meta property="og:type" content="website">
 
-  <!-- Facebook app / site ID -->
+  <!-- Facebook + Apple IDs you gave me -->
   <meta property="fb:app_id" content="1303136687776038">
-
-  <!-- Apple app ID (for future App Store deep-linking) -->
   <meta name="apple-itunes-app" content="app-id=117195524439419">
-
-  <!-- PWA manifest (still fine to keep) -->
-  <link rel="manifest" href="manifest.json">
 
   <style>
     body {
@@ -51,7 +46,7 @@
       font-size: 14px;
     }
 
-    /* Download/Install button */
+    /* Download button */
     #install-btn {
       background: #ffc600;
       border: none;
@@ -63,23 +58,19 @@
       font-size: 13px;
     }
 
-    /* Container for the skin */
     #skin-container {
       position: relative;
       max-width: 600px;
       margin: 10px auto;
     }
 
-    /* The boom box image itself */
     #boombox {
       display: block;
       width: 100%;
       max-width: 600px;
       height: auto;
-      margin-top: 0;
     }
 
-    /* Playlist input box */
     #playlist-input {
       margin: 30px auto 0;
       max-width: 480px;
@@ -113,21 +104,17 @@
   <h1>Playlist Skins App</h1>
   <p class="subtitle">Add this app to your device and bring back Rock 101.</p>
 
-  <!-- Download button wrapped in a direct link to the zip -->
-  <a href="PlaylistSkinsApp.zip" download>
-    <button id="install-btn">Download Playlist Skins App</button>
-  </a>
-
-  <!-- Boom Box skin -->
-  <div id="skin-container">
-    <img id="boombox" src="Boom Box (1).png" alt="Bring Back Rock 101 Boom Box">
-  </div>
-
   <!-- DIRECT ZIP DOWNLOAD BUTTON -->
   <a href="PlaylistSkinsApp.zip" download style="text-decoration:none;">
     <button id="install-btn">Download Playlist Skins App</button>
   </a>
-  <!-- Simple playlist input -->
+
+  <!-- Boombox skin -->
+  <div id="skin-container">
+    <img id="boombox" src="Boom Box (1).png" alt="Bring Back Rock 101 Boom Box">
+  </div>
+
+  <!-- Playlist input -->
   <div id="playlist-input">
     <p>Paste your Spotify playlist link:</p>
     <input type="text" id="playlist-url" placeholder="https://open.spotify.com/playlist/..." />
